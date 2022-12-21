@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "137948746151",
+    "project_id": "doska-21ab2",
+    "storage_bucket": "doska-21ab2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137948746151:android:66c529729c2bd763d76682",
+        "android_client_info": {
+          "package_name": "instagram.downloader.com.doskaobyavleniya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137948746151-3b5mnluk56u50hrm6v1qc7ll0r2rr34g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMlEdLadcxNABfWz5znKMJPLYm4jmetkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137948746151-3b5mnluk56u50hrm6v1qc7ll0r2rr34g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

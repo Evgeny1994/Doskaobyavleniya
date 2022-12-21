@@ -1,18 +1,10 @@
 package instagram.downloader.com.doskaobyavleniya;
-
 import android.os.Bundle;
-
-import android.view.View;
-
-
-
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -86,17 +78,24 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.id_my_ads) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Вы нажали кнопку 1", Toast.LENGTH_LONG);
+            toast.show();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.id_my_car) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.id_pc) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.id_my_smart) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.id_dm) {
+
+        } else if (id == R.id.id_sign_up) {
+
+        } else if (id == R.id.id_sign_in) {
+
+        }
+        else if (id == R.id.id_sign_out) {
 
         }
 
