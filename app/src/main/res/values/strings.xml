@@ -16,4 +16,13 @@
     <string name="ac_sign_up">Регистрация</string>
     <string name="ac_sign_in">Вход</string>
     <string name="ac_sign_out">Выход</string>
+
+    <!--Sign Dialog -->
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="sign_up_action">Зарегистрироваться</string>
+    <string name="forget_password">Забыли пароль?</string>
+
+
+
 </resources>

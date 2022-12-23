@@ -10,9 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import instagram.downloader.com.doskaobyavleniya.dialoghelper.DialogConst;
+import instagram.downloader.com.doskaobyavleniya.dialoghelper.DialogHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    //public dialogHelper = DialogHelper(this);
+
+    DialogHelper nc = new DialogHelper(this, this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +97,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.id_sign_up) {
 
+            nc.createSignDialog(DialogConst.SIGN_UP_STATE);
+
+
         } else if (id == R.id.id_sign_in) {
+
+            nc.createSignDialog(DialogConst.SIGN_IN_STATE);
 
         }
         else if (id == R.id.id_sign_out) {
