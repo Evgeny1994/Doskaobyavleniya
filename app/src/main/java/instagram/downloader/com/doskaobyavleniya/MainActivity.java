@@ -1,10 +1,13 @@
 package instagram.downloader.com.doskaobyavleniya;
+
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,7 +20,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     //public dialogHelper = DialogHelper(this);
 
-    DialogHelper nc = new DialogHelper(this, this);
+    DialogHelper nc = new DialogHelper( this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

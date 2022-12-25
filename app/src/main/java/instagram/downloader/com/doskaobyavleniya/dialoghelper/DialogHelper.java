@@ -2,15 +2,13 @@ package instagram.downloader.com.doskaobyavleniya.dialoghelper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
-import android.content.Context;
-import android.content.DialogInterface;
+
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
 
-import instagram.downloader.com.doskaobyavleniya.MainActivity;
+
 import instagram.downloader.com.doskaobyavleniya.R;
 
 
@@ -21,24 +19,19 @@ import instagram.downloader.com.doskaobyavleniya.R;
 
 public class DialogHelper {
 
-    //Можно убрать
 
-    public static Context context;
 
     public static Activity activity;
 
 
 
-    public DialogHelper(Context cntxt, Activity act) {
-        context = cntxt;
+    public DialogHelper(Activity act) {
+
         activity = act;
     }
 
 
-    //Можно убрать
-    public static Context getContext() {
-        return context;
-    }
+
 
     public static Activity getActivity() {
         return activity;
@@ -54,18 +47,10 @@ public class DialogHelper {
         View promptsView = li.inflate(R.layout.sign_dialog, null);
         mDialogBuildr.setView(promptsView);
         TextView textView = promptsView.findViewById(R.id.tvSignTitle);
-        textView.setText(getContext().getResources().getString(R.string.ac_sign_in));
+        textView.setText(getActivity().getResources().getString(R.string.ac_sign_up));
 
 
-        //Можно убрать
 
-        mDialogBuildr.setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
 
 
 
