@@ -6,11 +6,14 @@ import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import instagram.downloader.com.doskaobyavleniya.R;
-
+import instagram.downloader.com.doskaobyavleniya.account.AccountHelper;
 
 
 /**
@@ -25,9 +28,12 @@ public class DialogHelper {
 
 
 
+
+
     public DialogHelper(Activity act) {
 
         activity = act;
+
     }
 
 
@@ -39,24 +45,60 @@ public class DialogHelper {
 
 
 
+
     //функция
-    public void createSignDialog(int index) {
-        AlertDialog.Builder mDialogBuildr = new AlertDialog.Builder(getActivity());
+    public void createSignDialog(final int index) {
+        final AlertDialog.Builder mDialogBuildr = new AlertDialog.Builder(getActivity());
 
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.sign_dialog, null);
         mDialogBuildr.setView(promptsView);
-        TextView textView = promptsView.findViewById(R.id.tvSignTitle);
-        textView.setText(getActivity().getResources().getString(R.string.ac_sign_up));
+        if (index == DialogConst.SIGN_UP_STATE) {
+            TextView textView = promptsView.findViewById(R.id.tvSignTitle);
+            textView.setText(getActivity().getResources().getString(R.string.ac_sign_up));
+            Button button = promptsView.findViewById(R.id.btSignUpIn);
+            button.setText(getActivity().getResources().getString(R.string.sign_up_action));
+        } else {
+            TextView textView1 = promptsView.findViewById(R.id.tvSignTitle);
+            textView1.setText(getActivity().getResources().getString(R.string.ac_sign_in));
+            Button button1 = promptsView.findViewById(R.id.btSignUpIn);
+            button1.setText(getActivity().getResources().getString(R.string.sign_in_action));
+        }
 
 
 
+        final EditText editText1 = promptsView.findViewById(R.id.edSignEmail);
+        final EditText editText2 = promptsView.findViewById(R.id.edSignPassword);
 
+        Button button3 = promptsView.findViewById(R.id.btSignUpIn);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // alertDialog.dismiss();
+                if (index == DialogConst.SIGN_UP_STATE)
+                {
+                    AccountHelper.signUpWithEmail(editText1.getText().toString(), editText2.getText().toString());
+                }
+                else
+                {
+                    AccountHelper.signInWithEmail(editText1.getText().toString(), editText2.getText().toString());
+                }
 
+            }
+        });
 
-
-        AlertDialog alertDialog = mDialogBuildr.create();
+        final AlertDialog alertDialog = mDialogBuildr.create();
         alertDialog.show();
+
+
+
+
+
+
+
+
+
+
 
 
 

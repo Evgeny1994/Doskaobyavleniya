@@ -4,9 +4,12 @@ package instagram.downloader.com.doskaobyavleniya;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +21,12 @@ import instagram.downloader.com.doskaobyavleniya.dialoghelper.DialogHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    //public dialogHelper = DialogHelper(this);
+    public  FirebaseAuth mAuth;
+    private TextView textView;
 
     DialogHelper nc = new DialogHelper( this);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        textView = findViewById(R.id.tvAccountEmail);
+        mAuth = FirebaseAuth.getInstance();
 
       //  FloatingActionButton fab =  findViewById(R.id.fab);
    //     fab.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +55,14 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    @Override
+    public void onStart() {
+    super.onStart();
+    uiUpdate(mAuth.getCurrentUser());
+    }
+
+
 
     @Override
     public void onBackPressed() {
@@ -109,11 +125,26 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.id_sign_out) {
+            uiUpdate(null);
+            mAuth.signOut();
 
         }
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void  uiUpdate(FirebaseUser user)
+    {
+        if (user == null)
+        {
+            textView.setText(this.getResources().getString(R.string.not_reg));
+        }
+        else
+        {
+            textView.setText(user.getEmail());
+        }
+
     }
 }
