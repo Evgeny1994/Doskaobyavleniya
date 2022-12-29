@@ -6,5 +6,5 @@ package instagram.downloader.com.doskaobyavleniya.dialoghelper;
 
 public class DialogConst {
      public static int SIGN_UP_STATE = 0;
-    public static int SIGN_IN_STATE = 0;
+    public static int SIGN_IN_STATE = 1;
 }

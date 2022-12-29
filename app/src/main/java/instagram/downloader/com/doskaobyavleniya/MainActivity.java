@@ -1,6 +1,7 @@
 package instagram.downloader.com.doskaobyavleniya;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,10 +22,14 @@ import instagram.downloader.com.doskaobyavleniya.dialoghelper.DialogHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public  FirebaseAuth mAuth;
+    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private TextView textView;
+    Context context;
 
-    DialogHelper nc = new DialogHelper( this);
+    DialogHelper nc = new DialogHelper(this, this);
+//    AccountHelper accountHelper = new AccountHelper(this, this, );
+
+
 
 
 
@@ -32,41 +37,42 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+      //  mAuth = FirebaseAuth.getInstance();
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         textView = findViewById(R.id.tvAccountEmail);
-        mAuth = FirebaseAuth.getInstance();
+        context = getApplicationContext();
 
-      //  FloatingActionButton fab =  findViewById(R.id.fab);
-   //     fab.setOnClickListener(new View.OnClickListener() {
-  //          @Override
-  //          public void onClick(View view) {
-  //              Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-  //                      .setAction("Action", null).show();
-  //          }
- //       });
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        //  FloatingActionButton fab =  findViewById(R.id.fab);
+        //     fab.setOnClickListener(new View.OnClickListener() {
+        //          @Override
+        //          public void onClick(View view) {
+        //              Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+        //                      .setAction("Action", null).show();
+        //          }
+        //       });
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView =  findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onStart() {
-    super.onStart();
-    uiUpdate(mAuth.getCurrentUser());
+        super.onStart();
+  //  uiUpdate(mAuth.getCurrentUser());
     }
-
 
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -123,19 +129,19 @@ public class MainActivity extends AppCompatActivity
 
             nc.createSignDialog(DialogConst.SIGN_IN_STATE);
 
-        }
-        else if (id == R.id.id_sign_out) {
+        } else if (id == R.id.id_sign_out) {
             uiUpdate(null);
             mAuth.signOut();
 
         }
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public void  uiUpdate(FirebaseUser user)
+
+    public  void  uiUpdate(FirebaseUser user)
     {
         if (user == null)
         {
