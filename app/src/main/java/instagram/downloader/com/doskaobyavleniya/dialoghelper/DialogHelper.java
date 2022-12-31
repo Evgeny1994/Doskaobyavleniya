@@ -27,18 +27,14 @@ public class DialogHelper {
     public Context context;
     public  Activity activity;
     EditText editText1;
-
     public  AccountHelper accountHelper;
     public DialogHelper(Context con, Activity act) {
         context = con;
         activity = act;
     }
-
     public Context getContext() {
         return context;
     }
-
-
 
     public  Activity getActivity() {
         return activity;
@@ -74,29 +70,21 @@ public class DialogHelper {
                         String a = editText1.getText().toString();
                         String b = editText2.getText().toString();
                         // System.out.println(a);
-                        accountHelper.signUpWithEmail(a, b);
+                        AccountHelper.signUpWithEmail(a, b);
                     }
                 }
 
                         if (index == DialogConst.SIGN_IN_STATE)
                         {
-
-
-
                         if (editText1.getText().toString().isEmpty()) {
                             Toast.makeText(getContext(), "Ошибка", Toast.LENGTH_LONG).show();
                         } else {
                             String c = editText1.getText().toString();
                             String p = editText2.getText().toString();
-                            // System.out.println(a);
-                            // accountHelper.signUpWithEmail(a,b);
-
-
                             accountHelper.signInWithEmail(c, p);
 
                         }
                         }
-
             }
         });
 

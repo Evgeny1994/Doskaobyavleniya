@@ -22,11 +22,12 @@ import instagram.downloader.com.doskaobyavleniya.dialoghelper.DialogHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     private TextView textView;
     Context context;
 
     DialogHelper nc = new DialogHelper(this, this);
+    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
 //    AccountHelper accountHelper = new AccountHelper(this, this, );
 
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         textView = findViewById(R.id.tvAccountEmail);
         context = getApplicationContext();
+
 
 
         //  FloatingActionButton fab =  findViewById(R.id.fab);
