@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "137948746151-ng8toqo4lbfn9e7fc7hkv0f2g4jui9hf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "instagram.downloader.com.doskaobyavleniya",
+            "certificate_hash": "9f649be9669af8f084ca3ef1ea5ef9670a6a593a"
+          }
+        },
+        {
           "client_id": "137948746151-3b5mnluk56u50hrm6v1qc7ll0r2rr34g.apps.googleusercontent.com",
           "client_type": 3
         }
