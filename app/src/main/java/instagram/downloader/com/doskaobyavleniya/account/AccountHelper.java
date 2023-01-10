@@ -3,6 +3,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -12,6 +13,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthCredential;
@@ -30,6 +33,7 @@ public class AccountHelper {
   public static Activity activity;
   public static MainActivity mainActivity;
     public static int signInRequestCode;
+
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 
@@ -54,7 +58,7 @@ public class AccountHelper {
 
 
     //Регистрация
-   public static void signUpWithEmail(String email, String password) {
+   public static void signUpWithEmail(final String email, final String password) {
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(Task<AuthResult> task) {
@@ -64,7 +68,25 @@ public class AccountHelper {
                     }
                     else
                     {
-                        Toast.makeText(MainActivity.getContext(), "Не удалось зарегистрироваться",Toast.LENGTH_LONG).show();
+                        linkEmailToG(email, password);
+                        ////Порядок поиска записать
+                        //Toast.makeText(MainActivity.getContext(), "Не удалось зарегистрироваться",Toast.LENGTH_LONG).show();
+                        Log.d("My Log", "Exception", task.getException());
+
+                        String error1 ="The email address is badly formatted.";
+
+                        if (error1 == task.getException().toString())
+                        {
+                            Log.d("My Log", "Ошібся");   ////ОШИБКА
+
+                        }
+                        else
+                        {
+                            Log.d("My Log", "Успешно нашёл ошибку"); //Успех
+                        }
+
+
+
                     }
                 }
 
@@ -86,11 +108,41 @@ public class AccountHelper {
             });
     }
 
+    private static void linkEmailToG(String email, String password)
+    {
+       AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+       if (mAuth.getCurrentUser()!= null)
+       {
+           mAuth.getCurrentUser().linkWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+               @Override
+               public void onComplete(Task<AuthResult> task) {
+                   Toast.makeText(MainActivity.getContext(),getMainActivity().getResources().getString(R.string.link_done),Toast.LENGTH_LONG).show();
+               }
+           });
+       }
+       else
+       {
+           Toast.makeText(MainActivity.getContext(),getMainActivity().getResources().getString(R.string.enter_to_g), Toast.LENGTH_LONG).show();
+       }
+
+    }
+
+
+
+
     public static GoogleSignInClient getSignInClient() {
         //default_web_view
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(MainActivity.getRes().getString(R.string.default_web_client_id)).build();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(MainActivity.getRes().getString(R.string.default_web_client_id)).requestEmail().build();
         return GoogleSignIn.getClient(MainActivity.context,gso);
     }
+
+
+    public void signOutG()
+    {
+        getSignInClient().signOut();
+    }
+
+
 
     public static void signInWithGoogle() {
        GoogleSignInClient signInClient = getSignInClient();
@@ -106,6 +158,11 @@ public class AccountHelper {
                 if (task.isSuccessful())
                 {
                     Toast.makeText(MainActivity.getContext(),"Sign in done", Toast.LENGTH_LONG).show();
+                    MainActivity.uiUpdate(task.getResult().getUser());
+                }
+                else
+                {
+                    Log.d("My Log","Google Sign In Exception:", task.getException());
                 }
             }
         });
@@ -123,7 +180,8 @@ public class AccountHelper {
                         MainActivity.uiUpdate(task.getResult().getUser());
 
                     } else {
-                        Toast.makeText(MainActivity.getContext(), "Неудалось войти", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(MainActivity.getContext(), "Неудалось войти", Toast.LENGTH_SHORT).show();
+                        Log.d("My Log","Google Sign In Exception:", task.getException());
                     }
                 }
             });

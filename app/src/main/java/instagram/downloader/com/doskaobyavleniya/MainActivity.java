@@ -92,21 +92,20 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == accountHelper.signInRequestCode)
-        {
-           // Log.d("myLog","Sign in result");
+        if (resultCode == accountHelper.signInRequestCode) {
+            // Log.d("myLog","Sign in result");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
-                GoogleSignInAccount account = null;
-                try {
-                    account = task.getResult(ApiException.class);
-                } catch (ApiException e) {
-                    e.printStackTrace();
-                }
-                if (account != null) {
-                    AccountHelper.signInFirebaseWithGoogle(account.getIdToken());
-                }
+            GoogleSignInAccount account = null;
+            try {
+                account = task.getResult(ApiException.class);
+            } catch (ApiException e) {
+                e.printStackTrace();
             }
+            if (account != null) {
+                AccountHelper.signInFirebaseWithGoogle(account.getIdToken());
+            }
+        }
         else {
             Log.d("myLog","fatal Exception");
         }
@@ -191,6 +190,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.id_sign_out) {
             uiUpdate(null);
             mAuth.signOut();
+            accountHelper.signOutG();
 
         }
 
