@@ -1,6 +1,4 @@
 package instagram.downloader.com.doskaobyavleniya;
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -11,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
@@ -19,19 +16,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import instagram.downloader.com.doskaobyavleniya.account.AccountHelper;
+import instagram.downloader.com.doskaobyavleniya.act.EditAdsAct;
 import instagram.downloader.com.doskaobyavleniya.dialoghelper.DialogConst;
 import instagram.downloader.com.doskaobyavleniya.dialoghelper.DialogHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     public static Context context;
     public static TextView textView;
     public static Resources res;
@@ -39,10 +35,6 @@ public class MainActivity extends AppCompatActivity
     DialogHelper nc = new DialogHelper(this, this);
     AccountHelper accountHelper = new AccountHelper(this,this, this);
     public FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +46,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         context = getApplicationContext();
         MainActivity.context = getApplicationContext();
-       // APP_NAME = getResources().getString(R.string.default_web_client_id);
         res = getResources();
 
 
@@ -82,7 +73,6 @@ public class MainActivity extends AppCompatActivity
 
         View header =navigationView.getHeaderView(0);
         textView = header.findViewById(R.id.tvAccountEmail);
-
     }
 
   public static Resources getRes() {
@@ -153,8 +143,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.id_new_ads) {
+            Intent intent = new Intent(this, EditAdsAct.class);
+            startActivity(intent);
+           // return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -181,8 +173,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.id_sign_up) {
 
             nc.createSignDialog(DialogConst.SIGN_UP_STATE);
-
-
         } else if (id == R.id.id_sign_in) {
 
             nc.createSignDialog(DialogConst.SIGN_IN_STATE);
@@ -191,17 +181,11 @@ public class MainActivity extends AppCompatActivity
             uiUpdate(null);
             mAuth.signOut();
             accountHelper.signOutG();
-
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
-
 
     public static   void uiUpdate(FirebaseUser user) {
         if (user != null)
@@ -212,9 +196,6 @@ public class MainActivity extends AppCompatActivity
         {
             textView.setText("Войдите или зарегистрируйтесь");
         }
-
     }
-
-
 }
 
