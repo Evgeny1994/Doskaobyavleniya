@@ -1,5 +1,6 @@
 package instagram.downloader.com.doskaobyavleniya.dialogs;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import instagram.downloader.com.doskaobyavleniya.R;
 
@@ -16,11 +18,21 @@ import instagram.downloader.com.doskaobyavleniya.R;
  */
 
 public class RcViewDialogSpinner extends RecyclerView.Adapter<RcViewDialogSpinner.ViewHolder> {
+
+
+
+    public RcViewDialogSpinner(Context context, AlertDialog dialog) {
+    }
+    public Context context;
+    public AlertDialog dialog;
+
     ArrayList<String> mainList = new ArrayList<>();
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sp_list_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, context, dialog);
     }
 
     @Override
@@ -40,7 +52,7 @@ public class RcViewDialogSpinner extends RecyclerView.Adapter<RcViewDialogSpinne
     public class ViewHolder extends RecyclerView.ViewHolder
     {
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view, Context context, AlertDialog dialog) {
             super(view);
             TextView tvSpItem = itemView.findViewById(R.id.tvSpItem);
             tvSpItem.getText();
