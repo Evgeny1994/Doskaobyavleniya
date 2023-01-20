@@ -1,6 +1,7 @@
 package instagram.downloader.com.doskaobyavleniya.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,17 +46,25 @@ public class CityHelper {
 
     public static ArrayList<String> filterListData(ArrayList<String> list, String searchText) {
         ArrayList<String> tempList = new ArrayList<String>();
-        String selection = new String();
+       // String su="No result";
         tempList.clear();
-        if (searchText == null)
-        {
-            tempList.add("No result");
+        if (searchText == null) {
+           // tempList.add(su);
             return tempList;
         }
-        if (selection.toLowerCase().startsWith(searchText.toLowerCase()))
-        {
-            tempList.add(selection);
+        for (String selection : list) {
+
+
+            if (selection.toLowerCase().startsWith(searchText.toLowerCase())) {
+                tempList.add(selection);
+            }
         }
+            if (tempList.size() ==0)
+            {
+                tempList.add("No result");
+            }
         return tempList;
+
     }
 }
+

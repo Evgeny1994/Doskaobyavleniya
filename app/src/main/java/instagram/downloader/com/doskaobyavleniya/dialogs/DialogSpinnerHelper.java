@@ -5,8 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.LinearLayout;
+
 import android.widget.SearchView;
 
 import java.util.ArrayList;
@@ -16,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import instagram.downloader.com.doskaobyavleniya.R;
 import instagram.downloader.com.doskaobyavleniya.utils.CityHelper;
 
-import static instagram.downloader.com.doskaobyavleniya.account.AccountHelper.getActivity;
 
-/**
- * Created by Евгений on 16.01.2023.
- */
+
+
 
 public class DialogSpinnerHelper {
 
@@ -40,6 +37,7 @@ public class DialogSpinnerHelper {
     public void showSpinnerDialog(Context context, ArrayList<String> list)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog dialog = builder.create();
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.spinner_layout, null);
         RcViewDialogSpinner adapter = new RcViewDialogSpinner();
@@ -54,10 +52,10 @@ public class DialogSpinnerHelper {
         //Установка адаптера
         rcView.setAdapter(adapter);
 
-        builder.setView(promptsView);
+        dialog.setView(promptsView);
         adapter.updateAdapter(list);
-       // setSearchView(adapter, list, sv);
-        builder.show();
+        setSearchView(adapter, list, sv);
+        dialog.show();
     }
 
     private void setSearchView(final RcViewDialogSpinner adapter, final ArrayList<String> list, SearchView sv)

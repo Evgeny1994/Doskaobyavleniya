@@ -27,11 +27,6 @@ public class RcViewDialogSpinner extends RecyclerView.Adapter<RcViewDialogSpinne
     public void onBindViewHolder(ViewHolder holder, int position) {
 
       holder.setData(mainList.get(position));
-        //mainList.get((Integer) mainList.get(position));
-        //holder.getItemId(mainList.get(position));
-     //   holder.getAdapterPosition(mainList.get(position));
-     //   holder.getData(mainList.get(position));
-
     }
 
     @Override
