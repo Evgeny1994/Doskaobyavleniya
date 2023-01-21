@@ -23,13 +23,19 @@ import instagram.downloader.com.doskaobyavleniya.act.EditAdsAct;
 public class RcViewDialogSpinner extends RecyclerView.Adapter<RcViewDialogSpinner.ViewHolder> {
 
 
-
-
     public Context context;
     public AlertDialog dialog;
 
     public RcViewDialogSpinner(Context context, AlertDialog dialog) {
         this.context = context;
+        this.dialog = dialog;
+    }
+
+    public AlertDialog getDialog() {
+        return dialog;
+    }
+
+    public void setDialog(AlertDialog dialog) {
         this.dialog = dialog;
     }
 
@@ -45,7 +51,7 @@ public class RcViewDialogSpinner extends RecyclerView.Adapter<RcViewDialogSpinne
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-      holder.setData(mainList.get(position));
+        holder.setData(mainList.get(position));
     }
 
     @Override
@@ -54,47 +60,36 @@ public class RcViewDialogSpinner extends RecyclerView.Adapter<RcViewDialogSpinne
     }
 
 
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder
-    {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ViewHolder(View view, Context context, AlertDialog dialog) {
             super(view);
+
             TextView tvSpItem = itemView.findViewById(R.id.tvSpItem);
             tvSpItem.getText();
         }
 
         public void setData(String text) {
-            final TextView tvSpItem = itemView.findViewById(R.id.tvSpItem);
+            TextView tvSpItem = itemView.findViewById(R.id.tvSpItem);
             tvSpItem.setText(text);
-           // final String S12 = tvSpItem.getText().toString();
-            tvSpItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //Log.d("Переменная =", S12);
+            // final String S12 = tvSpItem.getText().toString();
+            tvSpItem.setOnClickListener(this);
 
-                    Intent intent = new Intent(itemView.getContext(),EditAdsAct.class);
-                    intent.putExtra("fname", tvSpItem.getText().toString());
-                    itemView.getContext().startActivity(intent);
-
-
-
-
-                //    Intent intent = new Intent(context, EditAdsAct.class);
-                //    intent.putExtra();
-                   // dialog.dismiss();
-                }
-
-            });
-            //dialog.dismiss();
         }
-        //dialog.dismiss();
+
+        @Override
+        public void onClick(View view) {
+            TextView tvSpItem = itemView.findViewById(R.id.tvSpItem);
+            Intent intent = new Intent(itemView.getContext(), EditAdsAct.class);
+            intent.putExtra("fname", tvSpItem.getText().toString());
+            itemView.getContext().startActivity(intent);
+
+
+        }
 
     }
 
-    public void updateAdapter(ArrayList<String> list)
-    {
+    public void updateAdapter(ArrayList<String> list) {
         mainList.clear();
         mainList.addAll(list);
         notifyDataSetChanged();

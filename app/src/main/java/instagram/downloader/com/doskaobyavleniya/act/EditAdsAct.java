@@ -44,9 +44,9 @@ public class EditAdsAct extends AppCompatActivity {
       //  ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, CityHelper.getAllCountries(this));
       //  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       /// country.setAdapter(adapter);
-        ArrayList<String> listCountry = CityHelper.getAllCountries(this);
-        DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
-        dialog.showSpinnerDialog(this, listCountry);
+    //    ArrayList<String> listCountry = CityHelper.getAllCountries(this);
+    //    DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
+    //    dialog.showSpinnerDialog(this, listCountry);
     }
 
     public  Context getContext() {
@@ -64,5 +64,6 @@ public class EditAdsAct extends AppCompatActivity {
        ArrayList<String> listCountry = CityHelper.getAllCountries(this);
       //  DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
         dialog.showSpinnerDialog(this, listCountry);
+
     }
 }
