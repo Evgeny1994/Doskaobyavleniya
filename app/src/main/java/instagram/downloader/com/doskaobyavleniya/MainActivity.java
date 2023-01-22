@@ -1,4 +1,5 @@
 package instagram.downloader.com.doskaobyavleniya;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
@@ -16,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity
     public static Resources res;
 
     DialogHelper nc = new DialogHelper(this, this);
-    AccountHelper accountHelper = new AccountHelper(this,this, this);
+    AccountHelper accountHelper = new AccountHelper(this, this, this);
     public FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -47,8 +50,6 @@ public class MainActivity extends AppCompatActivity
         context = getApplicationContext();
         MainActivity.context = getApplicationContext();
         res = getResources();
-
-
 
 
         //  FloatingActionButton fab =  findViewById(R.id.fab);
@@ -71,17 +72,17 @@ public class MainActivity extends AppCompatActivity
         //добавлено
 
 
-        View header =navigationView.getHeaderView(0);
+        View header = navigationView.getHeaderView(0);
         textView = header.findViewById(R.id.tvAccountEmail);
     }
 
-  public static Resources getRes() {
+    public static Resources getRes() {
         return res;
-  }
+    }
 
 
     @Override
-    protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == accountHelper.signInRequestCode) {
             // Log.d("myLog","Sign in result");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -95,11 +96,9 @@ public class MainActivity extends AppCompatActivity
             if (account != null) {
                 AccountHelper.signInFirebaseWithGoogle(account.getIdToken());
             }
+        } else {
+            Log.d("myLog", "fatal Exception");
         }
-        else {
-            Log.d("myLog","fatal Exception");
-        }
-
 
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -108,7 +107,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
-    uiUpdate(mAuth.getCurrentUser());
+        uiUpdate(mAuth.getCurrentUser());
     }
 
 
@@ -134,7 +133,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -146,7 +144,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.id_new_ads) {
             Intent intent = new Intent(this, EditAdsAct.class);
             startActivity(intent);
-           // return true;
+            // return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -187,13 +185,10 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public static   void uiUpdate(FirebaseUser user) {
-        if (user != null)
-        {
+    public static void uiUpdate(FirebaseUser user) {
+        if (user != null) {
             textView.setText(user.getEmail());
-        }
-        else
-        {
+        } else {
             textView.setText("Войдите или зарегистрируйтесь");
         }
     }

@@ -44,12 +44,38 @@ public class CityHelper {
     }
 
 
+    public static ArrayList<String> getAllCities(String countries, Context context) {
+        ArrayList<String> tempArray = new ArrayList<String>();
+        try {
+            InputStream inputStream = context.getAssets().open("countriesToCities.json");
+            int size = inputStream.available();
+            byte[] bytesArray = new byte[size];
+            inputStream.read(bytesArray);
+
+            String jsonFile = new String(bytesArray);
+            JSONObject jsonObject = new JSONObject(jsonFile);
+            JSONArray cityNames = jsonObject.getJSONArray(countries);
+            if (cityNames != null) {
+                for (int i = 0; i < cityNames.length(); i++) {
+                    tempArray.add(cityNames.getString(i));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return tempArray;
+    }
+
+
     public static ArrayList<String> filterListData(ArrayList<String> list, String searchText) {
         ArrayList<String> tempList = new ArrayList<String>();
-       // String su="No result";
+        // String su="No result";
         tempList.clear();
         if (searchText == null) {
-           // tempList.add(su);
+            // tempList.add(su);
             return tempList;
         }
         for (String selection : list) {
@@ -59,10 +85,9 @@ public class CityHelper {
                 tempList.add(selection);
             }
         }
-            if (tempList.size() ==0)
-            {
-                tempList.add("No result");
-            }
+        if (tempList.size() == 0) {
+            tempList.add("No result");
+        }
         return tempList;
 
     }

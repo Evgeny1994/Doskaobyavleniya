@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import instagram.downloader.com.doskaobyavleniya.R;
 import instagram.downloader.com.doskaobyavleniya.dialogs.DialogSpinnerHelper;
@@ -21,7 +22,7 @@ public class EditAdsAct extends AppCompatActivity {
     SearchView spCountry;
     Spinner country;
     TextView tvCountry;
-   public static Context context;
+    public static Context context;
     DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
 
     @Override
@@ -32,38 +33,42 @@ public class EditAdsAct extends AppCompatActivity {
         Intent intent = getIntent();
         String fName = intent.getStringExtra("fname");
         //System.out.println(fName);
-       tvCountry.setText(fName);
+        tvCountry.setText(fName);
 
 
-
-
-      //  tvCountry = findViewById(R.id.tvCountry);
+        //  tvCountry = findViewById(R.id.tvCountry);
 
         //spCountry = findViewById(R.id.counrySearch);
         //country = findViewById(R.id.country);
-      //  ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, CityHelper.getAllCountries(this));
-      //  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      /// country.setAdapter(adapter);
-    //    ArrayList<String> listCountry = CityHelper.getAllCountries(this);
-    //    DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
-    //    dialog.showSpinnerDialog(this, listCountry);
+        //  ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, CityHelper.getAllCountries(this));
+        //  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        /// country.setAdapter(adapter);
+        //    ArrayList<String> listCountry = CityHelper.getAllCountries(this);
+        //    DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
+        //    dialog.showSpinnerDialog(this, listCountry);
     }
 
-    public  Context getContext() {
+    public Context getContext() {
         return EditAdsAct.context;
     }
 
-    public void init()
-    {
+    public void init() {
 
     }
 
 
     public void onClickSelectCountry(View view) {
 
-       ArrayList<String> listCountry = CityHelper.getAllCountries(this);
-      //  DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
+        ArrayList<String> listCountry = CityHelper.getAllCountries(this);
+        //  DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
         dialog.showSpinnerDialog(this, listCountry);
 
     }
+
+    public void onClickSelectCity(View view) {
+
+
+    }
+
+
 }

@@ -1,10 +1,13 @@
 package instagram.downloader.com.doskaobyavleniya.dialogs;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SearchView;
+
 import java.util.ArrayList;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +17,7 @@ import instagram.downloader.com.doskaobyavleniya.utils.CityHelper;
 public class DialogSpinnerHelper {
 
 
-    public  Activity activity;
+    public Activity activity;
 
     public DialogSpinnerHelper(Activity act) {
         activity = act;
@@ -25,9 +28,7 @@ public class DialogSpinnerHelper {
     }
 
 
-
-    public void showSpinnerDialog(Context context, ArrayList<String> list)
-    {
+    public void showSpinnerDialog(Context context, ArrayList<String> list) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog dialog = builder.create();
         LayoutInflater li = LayoutInflater.from(getActivity());
@@ -50,8 +51,7 @@ public class DialogSpinnerHelper {
         dialog.show();
     }
 
-    private void setSearchView(final RcViewDialogSpinner adapter, final ArrayList<String> list, SearchView sv)
-    {
+    private void setSearchView(final RcViewDialogSpinner adapter, final ArrayList<String> list, SearchView sv) {
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
