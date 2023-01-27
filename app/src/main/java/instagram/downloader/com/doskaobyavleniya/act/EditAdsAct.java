@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,17 +25,33 @@ public class EditAdsAct extends AppCompatActivity {
     Spinner country;
     TextView tvCountry;
     public static Context context;
+    TextView tvCity;
     DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_ads);
-        TextView tvCountry = findViewById(R.id.tvCountry);
+        final TextView tvCountry = findViewById(R.id.tvCountry);
+        tvCity = findViewById(R.id.tvCity);
         Intent intent = getIntent();
         String fName = intent.getStringExtra("fname");
         //System.out.println(fName);
         tvCountry.setText(fName);
+       // System.out.println(fName);
+        //String selectedCountry = tvCountry.getText().toString();
+
+
+
+        //А это уже рабочая кнопка
+        tvCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String su = tvCountry.getText().toString();
+                Log.i("Переменная равно", su);
+            }
+        });
+
 
 
         //  tvCountry = findViewById(R.id.tvCountry);
@@ -56,7 +74,7 @@ public class EditAdsAct extends AppCompatActivity {
 
     }
 
-
+     //Первая кнопка работает нормально
     public void onClickSelectCountry(View view) {
 
         ArrayList<String> listCountry = CityHelper.getAllCountries(this);
@@ -65,10 +83,26 @@ public class EditAdsAct extends AppCompatActivity {
 
     }
 
-    public void onClickSelectCity(View view) {
+
+   // tvCountry.OnClickListener()
+
+ //   public  void onClickSelectCity(View view) {
+   //     String selectedCountry = tvCountry.getText().toString();
+
+   //     Log.i("СУКА", selectedCountry);
+      //  if (selectedCountry != getString(R.string.select_country))
+     //   {
+        //String list = null;
+          //////  ArrayList<String> listCountry = CityHelper.getAllCities(selectedCountry, this);
+           ////////// dialog.showSpinnerDialog(this, listCountry);
+   //     }
+  //      else
+  //      {
+  //          Toast.makeText(this,"No country selected", Toast.LENGTH_LONG).show();
+  //      }
 
 
     }
 
 
-}
+

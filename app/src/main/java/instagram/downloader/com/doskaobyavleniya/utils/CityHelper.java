@@ -1,7 +1,8 @@
 package instagram.downloader.com.doskaobyavleniya.utils;
 
+
+
 import android.content.Context;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,6 +11,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import instagram.downloader.com.doskaobyavleniya.act.EditAdsAct;
+
+import static instagram.downloader.com.doskaobyavleniya.MainActivity.context;
 
 /**
  * Created by Евгений on 16.01.2023.
@@ -44,7 +49,7 @@ public class CityHelper {
     }
 
 
-    public static ArrayList<String> getAllCities(String countries, Context context) {
+    public static ArrayList<String> getAllCities(String country, Context context) {
         ArrayList<String> tempArray = new ArrayList<String>();
         try {
             InputStream inputStream = context.getAssets().open("countriesToCities.json");
@@ -54,12 +59,12 @@ public class CityHelper {
 
             String jsonFile = new String(bytesArray);
             JSONObject jsonObject = new JSONObject(jsonFile);
-            JSONArray cityNames = jsonObject.getJSONArray(countries);
-            if (cityNames != null) {
+            JSONArray cityNames = jsonObject.getJSONArray(country);
+          //  if (cityNames != null) {
                 for (int i = 0; i < cityNames.length(); i++) {
                     tempArray.add(cityNames.getString(i));
                 }
-            }
+          //  }
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -91,5 +96,7 @@ public class CityHelper {
         return tempList;
 
     }
+
+
 }
 
