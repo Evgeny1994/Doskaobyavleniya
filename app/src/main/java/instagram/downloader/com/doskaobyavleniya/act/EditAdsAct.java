@@ -81,6 +81,10 @@ public class EditAdsAct extends AppCompatActivity {
 
     }
 
+    public void onClickGetImage(View view) {
+        Log.d("переменная равна", "очень сильно");
+    }
+
 
    // tvCountry.OnClickListener()
 
