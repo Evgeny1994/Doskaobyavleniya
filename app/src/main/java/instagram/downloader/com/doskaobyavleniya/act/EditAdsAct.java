@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,8 +16,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import instagram.downloader.com.doskaobyavleniya.R;
 import instagram.downloader.com.doskaobyavleniya.dialogs.DialogSpinnerHelper;
+import instagram.downloader.com.doskaobyavleniya.frag.ImageListFrag;
 import instagram.downloader.com.doskaobyavleniya.utils.CityHelper;
 
 
@@ -26,6 +30,7 @@ public class EditAdsAct extends AppCompatActivity {
     TextView tvCountry;
     public static Context context;
     TextView tvCity;
+    ScrollView scrollViewMain;
     DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
 
     @Override
@@ -34,6 +39,7 @@ public class EditAdsAct extends AppCompatActivity {
         setContentView(R.layout.activity_edit_ads);
         final TextView tvCountry = findViewById(R.id.tvCountry);
         tvCity = findViewById(R.id.tvCity);
+        scrollViewMain = findViewById(R.id.scrolViewMain);
         Intent intent = getIntent();
         String fName = intent.getStringExtra("fname");
         //System.out.println(fName);
@@ -74,7 +80,6 @@ public class EditAdsAct extends AppCompatActivity {
 
      //Первая кнопка работает нормально
     public void onClickSelectCountry(View view) {
-
         ArrayList<String> listCountry = CityHelper.getAllCountries(this);
         //  DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
         dialog.showSpinnerDialog(this, listCountry);
@@ -82,7 +87,10 @@ public class EditAdsAct extends AppCompatActivity {
     }
 
     public void onClickGetImage(View view) {
-        Log.d("переменная равна", "очень сильно");
+        scrollViewMain.setVisibility(View.GONE);
+        FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
+        fm.replace(R.id.place_holder, new ImageListFrag());
+        fm.commit();
     }
 
 

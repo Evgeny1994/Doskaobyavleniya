@@ -47,6 +47,7 @@
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:onClick="onClickGetImage"
                     app:layout_constraintTop_toTopOf="@+id/vpimages"
                     app:srcCompat="@android:drawable/ic_menu_edit"
                     tools:layout_editor_absoluteX="283dp" />
