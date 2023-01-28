@@ -31,9 +31,13 @@ public class ImageListFrag extends Fragment {
  //   private String mParam2;
     Button bBack;
 
-    private FragmentCloseInterface mListener;
+    public FragmentCloseInterface fragCloseInterface;
 
- //   public ImageListFrag() {
+    public ImageListFrag(FragmentCloseInterface fragCloseInterface) {
+        this.fragCloseInterface = fragCloseInterface;
+    }
+
+    //   public ImageListFrag() {
         // Required empty public constructor
  //   }
 
@@ -92,16 +96,16 @@ public class ImageListFrag extends Fragment {
 //        }
 //    }
 
-//    @Override
-//    public void onAttach(Context context) {//
-   //     super.onAttach(context);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
    //     if (context instanceof OnFragmentInteractionListener) {
    //         mListener = (OnFragmentInteractionListener) context;
   //      } else {
   //          throw new RuntimeException(context.toString()
   //                  + " must implement OnFragmentInteractionListener");
  //       }
-//    }
+    }
 
 //    @Override
 //    public void onDetach() {

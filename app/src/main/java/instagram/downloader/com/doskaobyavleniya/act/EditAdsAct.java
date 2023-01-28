@@ -89,7 +89,7 @@ public class EditAdsAct extends AppCompatActivity {
     public void onClickGetImage(View view) {
         scrollViewMain.setVisibility(View.GONE);
         FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-        fm.replace(R.id.place_holder, new ImageListFrag());
+        fm.replace(R.id.place_holder, new ImageListFrag(this::init));
         fm.commit();
     }
 
