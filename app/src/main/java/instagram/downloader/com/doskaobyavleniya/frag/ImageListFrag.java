@@ -1,7 +1,7 @@
 package instagram.downloader.com.doskaobyavleniya.frag;
 
+import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import instagram.downloader.com.doskaobyavleniya.R;
 
 /**
@@ -29,13 +30,20 @@ public class ImageListFrag extends Fragment {
     // TODO: Rename and change types of parameters
  //   private String mParam1;
  //   private String mParam2;
+    //Объявление переменных
     Button bBack;
 
-    public FragmentCloseInterface fragCloseInterface;
+    public FragmentCloseInterface onFragClose;
 
-    public ImageListFrag(FragmentCloseInterface fragCloseInterface) {
-        this.fragCloseInterface = fragCloseInterface;
+    public ImageListFrag(FragmentCloseInterface onFragClose) {
+        this.onFragClose = onFragClose;
     }
+
+    public FragmentCloseInterface getFragCloseInterface() {
+        return onFragClose;
+    }
+
+
 
     //   public ImageListFrag() {
         // Required empty public constructor
@@ -96,22 +104,22 @@ public class ImageListFrag extends Fragment {
 //        }
 //    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
    //     if (context instanceof OnFragmentInteractionListener) {
    //         mListener = (OnFragmentInteractionListener) context;
   //      } else {
   //          throw new RuntimeException(context.toString()
   //                  + " must implement OnFragmentInteractionListener");
  //       }
-    }
-
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
 //    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        getFragCloseInterface().onFragClose();
+    }
 
     /**
      * This interface must be implemented by activities that contain this
