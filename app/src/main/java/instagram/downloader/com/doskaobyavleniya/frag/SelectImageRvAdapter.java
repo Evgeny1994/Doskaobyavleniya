@@ -1,10 +1,14 @@
 package instagram.downloader.com.doskaobyavleniya.frag;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 import instagram.downloader.com.doskaobyavleniya.R;
@@ -14,7 +18,19 @@ import instagram.downloader.com.doskaobyavleniya.R;
  */
 
 public class SelectImageRvAdapter extends RecyclerView.Adapter<SelectImageRvAdapter.ViewHolder> {
-    ArrayList<String> mainArray = new ArrayList<>();
+
+    SelectImageItem selectImageItem;
+
+    public SelectImageRvAdapter() {
+        this.selectImageItem = selectImageItem;
+    }
+
+    public SelectImageItem getSelectImageItem() {
+        return selectImageItem;
+    }
+
+    ArrayList<SelectImageItem> mainArray = new ArrayList<>();
+
 
 
     @Override
@@ -34,15 +50,32 @@ public class SelectImageRvAdapter extends RecyclerView.Adapter<SelectImageRvAdap
         return mainArray.size();
     }
 
+    public void updateAdapter(List<SelectImageItem> newList) {
+        mainArray.clear();
+        mainArray.addAll(newList);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {
             super(itemView);
         }
 
-        public void setData(String text) {
+        public void setData(SelectImageItem item) {
+            TextView tvTitle = itemView.findViewById(R.id.tvTitle);
+            ImageView image = itemView.findViewById(R.id.imageView);
+            tvTitle.setText(item.title);
+            image.setImageURI(Uri.parse(item.imageUrl));
+
 
     }
 }
+
+//  public void  updateAdapter()
+//  {
+
+
+//  }
 
 
     }

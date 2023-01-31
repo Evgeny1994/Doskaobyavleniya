@@ -1,17 +1,23 @@
 package instagram.downloader.com.doskaobyavleniya.frag;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import instagram.downloader.com.doskaobyavleniya.R;
+import instagram.downloader.com.doskaobyavleniya.utils.ItemTouchMoveCallback;
+
+import static instagram.downloader.com.doskaobyavleniya.act.EditAdsAct.context;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,10 +38,16 @@ public class ImageListFrag extends Fragment {
  //   private String mParam2;
     //Объявление переменных
     Button bBack;
+    RecyclerView rcViewSelectImage;
+
+    public String title;
+    public String imageUrl;
+
 
     public FragmentCloseInterface onFragClose;
+   public ArrayList<String> newList = new ArrayList<>();
 
-    public ImageListFrag(FragmentCloseInterface onFragClose) {
+    public ImageListFrag(FragmentCloseInterface onFragClose, ArrayList<String> returnValues) {
         this.onFragClose = onFragClose;
     }
 
@@ -43,6 +55,10 @@ public class ImageListFrag extends Fragment {
         return onFragClose;
     }
 
+
+    SelectImageRvAdapter adapter = new SelectImageRvAdapter();
+    ItemTouchMoveCallback dragCallback = new ItemTouchMoveCallback();
+    ItemTouchHelper touchHelper = new ItemTouchHelper(dragCallback);
 
 
     //   public ImageListFrag() {
@@ -86,6 +102,19 @@ public class ImageListFrag extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rcViewSelectImage.findViewById(R.id.rcViewSelectImage);
+        rcViewSelectImage.setLayoutManager(new LinearLayoutManager(context));
+        rcViewSelectImage.setAdapter(adapter);
+        //rcView.setAdapter(adapter);
+        ArrayList<ImageListFrag> updateList = new ArrayList<>();
+        for (int n=0; n<newList.size(); n++) {
+            Log.d("","Пиздец");
+            //updateList.add(new SelectImageItem(n, newList[n]));
+        }
+        //adapter.updateAdapter(updateList);
+
+
+
         bBack = view.findViewById(R.id.bBack);
         bBack.setOnClickListener(new View.OnClickListener() {
             @Override

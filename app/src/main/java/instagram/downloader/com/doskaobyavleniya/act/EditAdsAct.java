@@ -4,6 +4,7 @@ package instagram.downloader.com.doskaobyavleniya.act;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,15 +14,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fxn.pix.Pix;
+
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import instagram.downloader.com.doskaobyavleniya.R;
 import instagram.downloader.com.doskaobyavleniya.dialogs.DialogSpinnerHelper;
 import instagram.downloader.com.doskaobyavleniya.frag.ImageListFrag;
 import instagram.downloader.com.doskaobyavleniya.utils.CityHelper;
+import instagram.downloader.com.doskaobyavleniya.utils.ImagePicker;
 
 
 public class EditAdsAct extends AppCompatActivity {
@@ -32,6 +37,16 @@ public class EditAdsAct extends AppCompatActivity {
     TextView tvCity;
     ScrollView scrollViewMain;
     DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
+
+//    public ImagePicker imagePicker;
+
+//    public EditAdsAct(ImagePicker imagePicker) {
+//        this.imagePicker = imagePicker;
+//    }
+
+//    public ImagePicker getImagePicker() {
+//        return imagePicker;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +93,31 @@ public class EditAdsAct extends AppCompatActivity {
 
     }
 
-     //Первая кнопка работает нормально
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 3)
+        {
+            if (data!=null)
+            {
+                ArrayList<String> returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+                if (returnValues.size()>1)
+                {
+                    scrollViewMain.setVisibility(View.GONE);
+                    FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
+                    fm.replace(R.id.place_holder, new ImageListFrag(this::onFragClose, returnValues));
+                    fm.commit();
+                }
+            }
+        }
+    }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//    }
+
+    //Первая кнопка работает нормально
     public void onClickSelectCountry(View view) {
         ArrayList<String> listCountry = CityHelper.getAllCountries(this);
         //  DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
@@ -88,9 +127,7 @@ public class EditAdsAct extends AppCompatActivity {
 
     public void onClickGetImage(View view) {
         scrollViewMain.setVisibility(View.GONE);
-        FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-        fm.replace(R.id.place_holder, new ImageListFrag(this::onFragClose));
-        fm.commit();
+        ImagePicker.getImages(this,3);
     }
 
 
