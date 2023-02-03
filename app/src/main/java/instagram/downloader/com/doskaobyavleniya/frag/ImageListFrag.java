@@ -38,14 +38,14 @@ public class ImageListFrag extends Fragment {
  //   private String mParam2;
     //Объявление переменных
     Button bBack;
-    RecyclerView rcViewSelectImage;
+   // RecyclerView rcViewSelectImage;
 
     public String title;
     public String imageUrl;
 
 
     public FragmentCloseInterface onFragClose;
-   public ArrayList<String> newList = new ArrayList<>();
+
 
     public ImageListFrag(FragmentCloseInterface onFragClose, ArrayList<String> returnValues) {
         this.onFragClose = onFragClose;
@@ -59,6 +59,8 @@ public class ImageListFrag extends Fragment {
     SelectImageRvAdapter adapter = new SelectImageRvAdapter();
     ItemTouchMoveCallback dragCallback = new ItemTouchMoveCallback();
     ItemTouchHelper touchHelper = new ItemTouchHelper(dragCallback);
+
+    public ArrayList<String> newList = new ArrayList<>();
 
 
     //   public ImageListFrag() {
@@ -99,19 +101,22 @@ public class ImageListFrag extends Fragment {
         return inflater.inflate(R.layout.list_image_frag, container, false);
     }
 
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rcViewSelectImage.findViewById(R.id.rcViewSelectImage);
+        RecyclerView rcViewSelectImage = view.findViewById(R.id.rcViewSelectImage);
         rcViewSelectImage.setLayoutManager(new LinearLayoutManager(context));
         rcViewSelectImage.setAdapter(adapter);
-        //rcView.setAdapter(adapter);
-        ArrayList<ImageListFrag> updateList = new ArrayList<>();
-        for (int n=0; n<newList.size(); n++) {
-            Log.d("","Пиздец");
-            //updateList.add(new SelectImageItem(n, newList[n]));
+        ArrayList<SelectImageItem> updateList = new ArrayList<SelectImageItem>();
+        //Вместо Data Class
+        int i=0;
+        for(i=0; i<newList.size(); i++)
+        {
+          //  String selectImageItem = new SelectImageItem(0,0);
+            updateList.add(new SelectImageItem(i, newList.get(i)));
         }
-        //adapter.updateAdapter(updateList);
+        adapter.updateAdapter(updateList);
 
 
 

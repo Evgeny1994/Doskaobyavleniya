@@ -58,7 +58,7 @@ public class DialogHelper {
                 // alertDialog.dismiss();
                 if (index == DialogConst.SIGN_UP_STATE) {
                     if (editText1.getText().toString().isEmpty()) {
-                        Toast.makeText(getContext(), "Ошибка", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), R.string.sign_up_action, Toast.LENGTH_LONG).show();
                     } else {
                         String a = editText1.getText().toString();
                         String b = editText2.getText().toString();

@@ -50,11 +50,11 @@ public class SelectImageRvAdapter extends RecyclerView.Adapter<SelectImageRvAdap
         return mainArray.size();
     }
 
-    public void updateAdapter(List<SelectImageItem> newList) {
-        mainArray.clear();
-        mainArray.addAll(newList);
-        notifyDataSetChanged();
-    }
+//    public void updateAdapter(List<SelectImageItem> newList) {
+//        mainArray.clear();
+//        mainArray.addAll(newList);
+ //       notifyDataSetChanged();
+//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {
@@ -71,11 +71,14 @@ public class SelectImageRvAdapter extends RecyclerView.Adapter<SelectImageRvAdap
     }
 }
 
-//  public void  updateAdapter()
-//  {
+  public void  updateAdapter(List<SelectImageItem> newList)
+  {
+      mainArray.clear();
+      mainArray.addAll(newList);
+      notifyDataSetChanged();
 
 
-//  }
+  }
 
 
     }

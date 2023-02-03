@@ -1,13 +1,10 @@
 package instagram.downloader.com.doskaobyavleniya.act;
-
-
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -15,21 +12,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fxn.pix.Pix;
+import com.fxn.utility.PermUtil;
 
 import java.util.ArrayList;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import instagram.downloader.com.doskaobyavleniya.R;
 import instagram.downloader.com.doskaobyavleniya.dialogs.DialogSpinnerHelper;
+import instagram.downloader.com.doskaobyavleniya.frag.FragmentCloseInterface;
 import instagram.downloader.com.doskaobyavleniya.frag.ImageListFrag;
 import instagram.downloader.com.doskaobyavleniya.utils.CityHelper;
 import instagram.downloader.com.doskaobyavleniya.utils.ImagePicker;
 
 
-public class EditAdsAct extends AppCompatActivity {
+public class EditAdsAct extends AppCompatActivity implements FragmentCloseInterface {
     SearchView spCountry;
     Spinner country;
     TextView tvCountry;
@@ -37,9 +33,11 @@ public class EditAdsAct extends AppCompatActivity {
     TextView tvCity;
     ScrollView scrollViewMain;
     DialogSpinnerHelper dialog = new DialogSpinnerHelper(this);
+    public final int REQUEST_CODE_GET_IMAGES = 999;
 
 //    public ImagePicker imagePicker;
 
+    Boolean isImagesPermissionGranted = false;
 //    public EditAdsAct(ImagePicker imagePicker) {
 //        this.imagePicker = imagePicker;
 //    }
@@ -96,26 +94,32 @@ public class EditAdsAct extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 3)
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_GET_IMAGES)
         {
-            if (data!=null)
-            {
                 ArrayList<String> returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-                if (returnValues.size()>1)
-                {
                     scrollViewMain.setVisibility(View.GONE);
                     FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-                    fm.replace(R.id.place_holder, new ImageListFrag(this::onFragClose, returnValues));
+                    fm.replace(R.id.place_holder, new ImageListFrag(this, returnValues));
                     fm.commit();
+ //               }
+            }
+        }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                   // ImagePicker.getImages(EditAdsAct.class);
+                } else {
+                   // isImagesPermissionGranted = true;
+                    Toast.makeText(EditAdsAct.this, "Approve permissions to open Pix ImagePicker", Toast.LENGTH_LONG).show();
                 }
+                return;
             }
         }
     }
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//    }
 
     //Первая кнопка работает нормально
     public void onClickSelectCountry(View view) {
@@ -124,6 +128,7 @@ public class EditAdsAct extends AppCompatActivity {
         dialog.showSpinnerDialog(this, listCountry);
 
     }
+
 
     public void onClickGetImage(View view) {
         scrollViewMain.setVisibility(View.GONE);
@@ -137,8 +142,13 @@ public class EditAdsAct extends AppCompatActivity {
         scrollViewMain.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
-   // tvCountry.OnClickListener()
+    }
+
+
+    // tvCountry.OnClickListener()
 
  //   public  void onClickSelectCity(View view) {
    //     String selectedCountry = tvCountry.getText().toString();
